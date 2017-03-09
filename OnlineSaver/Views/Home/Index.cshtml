@@ -1,0 +1,55 @@
+﻿@model OnlineSaver.Models.GoalViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row" style="padding-top:30px;">
+    <div class="col-md-12">
+        @if (ViewBag.GoalCreated != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <string>Good News</string><p>New goal has been created.</p>
+            </div>
+        }
+
+    </div>
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Create Goals</div>
+            <div class="panel-body">
+                @using (Html.BeginForm("CreateGoal", "Home", FormMethod.Post, new { @id = "createGoalForm" }))
+            {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label for="Title" class="control-label">Title</label>
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Title, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="SaveGoal" class="control-label">Target goal</label>
+                        @Html.TextBoxFor(model => model.SaveGoal, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.SaveGoal, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="Description" class="control-label">Description</label>
+                        @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Description, null, new { @class = "text-danger" })
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Save Goal">
+                }
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            @Html.ActionLink("View My Goals", "GetlGoals", "Home", null, new { id = "btnGoals", @class = "btn btn-info btn-block form-control" })
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            @Html.ActionLink("Add my credit", "CreateCredit", "Home", null, new { id = "btnGoals", @class = "btn btn-info btn-block form-control" })
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OnlineSaverModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="SavingGoal">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Goal" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="SavedAmount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="OnlineSaverModel.FK_SavingGoals_AspNetUsers" FromRole="SavingGoal" ToRole="AspNetUser" />
+    <Property Name="CreateDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="CreditAllocations" Relationship="OnlineSaverModel.FK_CreditAllocation_SavingGoals" FromRole="SavingGoal" ToRole="CreditAllocation" />
+  </EntityType>
+  <EntityContainer Name="OnlineSaverEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="SavingGoals" EntityType="Self.SavingGoal" />
+    <EntitySet Name="C__MigrationHistory" EntityType="OnlineSaverModel.C__MigrationHistory" />
+    <EntitySet Name="AspNetRoles" EntityType="OnlineSaverModel.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="OnlineSaverModel.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="OnlineSaverModel.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="OnlineSaverModel.AspNetUser" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="OnlineSaverModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="OnlineSaverModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="OnlineSaverModel.AspNetUserRoles">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SavingGoals_AspNetUsers" Association="OnlineSaverModel.FK_SavingGoals_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="SavingGoal" EntitySet="SavingGoals" />
+    </AssociationSet>
+    <EntitySet Name="CreditAllocations" EntityType="OnlineSaverModel.CreditAllocation" />
+    <EntitySet Name="Credits" EntityType="OnlineSaverModel.Credit" />
+    <AssociationSet Name="FK_Credits_AspNetUsers" Association="OnlineSaverModel.FK_Credits_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Credit" EntitySet="Credits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CreditAllocation_Credits" Association="OnlineSaverModel.FK_CreditAllocation_Credits">
+      <End Role="Credit" EntitySet="Credits" />
+      <End Role="CreditAllocation" EntitySet="CreditAllocations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CreditAllocation_SavingGoals" Association="OnlineSaverModel.FK_CreditAllocation_SavingGoals">
+      <End Role="SavingGoal" EntitySet="SavingGoals" />
+      <End Role="CreditAllocation" EntitySet="CreditAllocations" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="OnlineSaverModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="OnlineSaverModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="OnlineSaverModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="OnlineSaverModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="OnlineSaverModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+    <NavigationProperty Name="AspNetRoles" Relationship="OnlineSaverModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+    <NavigationProperty Name="SavingGoals" Relationship="OnlineSaverModel.FK_SavingGoals_AspNetUsers" FromRole="AspNetUser" ToRole="SavingGoal" />
+    <NavigationProperty Name="Credits" Relationship="OnlineSaverModel.FK_Credits_AspNetUsers" FromRole="AspNetUser" ToRole="Credit" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Type="OnlineSaverModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="OnlineSaverModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaim">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Type="OnlineSaverModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="OnlineSaverModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="OnlineSaverModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+    <End Type="OnlineSaverModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_SavingGoals_AspNetUsers">
+    <End Type="OnlineSaverModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="OnlineSaverModel.SavingGoal" Role="SavingGoal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SavingGoal">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CreditAllocation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreditId" Type="Int32" Nullable="false" />
+    <Property Name="GoalId" Type="Int32" Nullable="false" />
+    <Property Name="AllocatedAmount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Credit" Relationship="OnlineSaverModel.FK_CreditAllocation_Credits" FromRole="CreditAllocation" ToRole="Credit" />
+    <NavigationProperty Name="SavingGoal" Relationship="OnlineSaverModel.FK_CreditAllocation_SavingGoals" FromRole="CreditAllocation" ToRole="SavingGoal" />
+  </EntityType>
+  <EntityType Name="Credit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImportAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Descrption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="OnlineSaverModel.FK_Credits_AspNetUsers" FromRole="Credit" ToRole="AspNetUser" />
+    <NavigationProperty Name="CreditAllocations" Relationship="OnlineSaverModel.FK_CreditAllocation_Credits" FromRole="Credit" ToRole="CreditAllocation" />
+  </EntityType>
+  <Association Name="FK_Credits_AspNetUsers">
+    <End Type="OnlineSaverModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="OnlineSaverModel.Credit" Role="Credit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Credit">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CreditAllocation_Credits">
+    <End Type="OnlineSaverModel.Credit" Role="Credit" Multiplicity="1" />
+    <End Type="OnlineSaverModel.CreditAllocation" Role="CreditAllocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Credit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CreditAllocation">
+        <PropertyRef Name="CreditId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CreditAllocation_SavingGoals">
+    <End Type="OnlineSaverModel.SavingGoal" Role="SavingGoal" Multiplicity="1" />
+    <End Type="OnlineSaverModel.CreditAllocation" Role="CreditAllocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SavingGoal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CreditAllocation">
+        <PropertyRef Name="GoalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

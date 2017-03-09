@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8ff6358cb9df4c4fbe1183a010c2c838" Name="Diagram1">
+        <EntityTypeShape EntityType="OnlineSaverModel.SavingGoal" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineSaverModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="OnlineSaverModel.AspNetRole" Width="1.5" PointX="3.75" PointY="2.5" />
+        <EntityTypeShape EntityType="OnlineSaverModel.AspNetUserClaim" Width="1.5" PointX="8.25" PointY="3.625" />
+        <EntityTypeShape EntityType="OnlineSaverModel.AspNetUserLogin" Width="1.5" PointX="8.25" PointY="1" />
+        <EntityTypeShape EntityType="OnlineSaverModel.AspNetUser" Width="1.5" PointX="6" PointY="1.375" />
+        <AssociationConnector Association="OnlineSaverModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="OnlineSaverModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="OnlineSaverModel.AspNetUserRoles" />
+        <AssociationConnector Association="OnlineSaverModel.FK_SavingGoals_AspNetUsers" />
+        <EntityTypeShape EntityType="OnlineSaverModel.CreditAllocation" Width="1.5" PointX="10.5" PointY="3.5" />
+        <EntityTypeShape EntityType="OnlineSaverModel.Credit" Width="1.5" PointX="8.25" PointY="6.375" />
+        <AssociationConnector Association="OnlineSaverModel.FK_Credits_AspNetUsers" />
+        <AssociationConnector Association="OnlineSaverModel.FK_CreditAllocation_Credits" />
+        <AssociationConnector Association="OnlineSaverModel.FK_CreditAllocation_SavingGoals" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,55 @@
+﻿@model OnlineSaver.Models.CreditViewModel
+
+@{
+    ViewBag.Title = "Credit Page";
+}
+
+<div class="row" style="padding-top:30px;">
+    <div class="col-md-12">
+        @if (ViewBag.CreditCreated != null)
+        {
+            if (bool.Parse(ViewBag.CreditCreated.ToString()))
+            {
+                <div class="alert alert-success" role="alert">
+                    <string>Success</string><p> New credit has been created.</p>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning">
+                    <strong>Warning!</strong> New  credit amount should not more then need to be allocated amount (@ViewBag.NeedAllocateAmount.ToString("C2")).
+                </div>
+            }
+        }
+        
+
+    </div>
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Create Goals</div>
+            <div class="panel-body">
+                @using (Html.BeginForm("CreateCredit", "Home", FormMethod.Post, new { @id = "createCreditForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label for="Title" class="control-label">Credit Amount</label>
+                        @Html.TextBoxFor(model => model.CreditAmount, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CreditAmount, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="SaveGoal" class="control-label">Description</label>
+                        @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Description, null, new { @class = "text-danger" })
+                    </div> 
+                    <input type="submit" class="btn btn-primary" value="Create Credit">
+                }
+            </div>
+        </div> 
+    </div>
+    <div class="col-md-4">
+        @Html.ActionLink("View My Goals", "GetlGoals", "Home", null, new { id = "btnGoals", @class = "btn btn-info btn-block" })
+    </div>
+    <div class="col-md-4">
+        @Html.ActionLink("Add my credit", "CreateCredit", "Home", null, new { id = "btnGoals", @class = "btn btn-info btn-block" })
+    </div>
+</div>

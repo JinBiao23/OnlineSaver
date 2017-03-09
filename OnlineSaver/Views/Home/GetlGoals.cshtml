@@ -1,0 +1,71 @@
+﻿@model OnlineSaver.Models.GoalListViewModel
+
+@{
+    ViewBag.Title = "Dealer Listing";
+}
+<style>
+    .progress {
+  position: relative;
+}
+
+.progress span {
+    position: absolute;
+    display: block;
+    width: 100%;
+    color: black;
+}
+</style>
+<div class="row" style="padding-top:30px;">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <!-- Default panel contents -->
+            <div class="panel-heading">My Goals</div>
+            <div class="panel-body">
+                @if (Model.Goals == null || !Model.Goals.Any())
+                {
+                    <p>No Saving Goals</p>
+                }
+                else { 
+                <div class="table-responsive"> 
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>@Html.ActionLink("Title", "GetlGoals","Home", new { sortOrder = ViewBag.TitleSort },null)</th>
+                                <th>@Html.ActionLink("Goal Amount", "GetlGoals", "Home", new { sortOrder = ViewBag.SaveGoal }, null)</th>
+                                <th>@Html.ActionLink("Saved Amount", "GetlGoals", "Home", new { sortOrder = ViewBag.SavedAmountSort }, null)</th>
+                                <th>@Html.ActionLink("Progress", "GetlGoals", "Home", new { sortOrder = ViewBag.ProgressSort }, null)</th>
+                                <th>@Html.ActionLink("Create Date", "GetlGoals", "Home", new { sortOrder = ViewBag.DateSort }, null)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var goal in Model.Goals)
+                            {
+                                <tr>
+                                    <td>@goal.Title</td>
+                                    <td>@goal.SaveGoal.ToString("C2")</td>
+                                    <td>@goal.SavedAmount.ToString("C2")</td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="@goal.progress"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width:@(goal.progress)%">
+                                                <span>@(goal.progress + "%")</span>
+                                            </div> 
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @String.Format("{0:d/M/yyyy}", goal.CreateDate)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                }
+            </div> 
+           
+        </div>
+    </div> 
+    <div class="col-md-2"> 
+            @Html.ActionLink("Back", "Index", "Home", null, new { id = "btnBackToIndex", @class = "btn btn-info btn-block" })
+    </div>
+</div>
